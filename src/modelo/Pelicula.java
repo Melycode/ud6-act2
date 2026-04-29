@@ -59,6 +59,19 @@ public class Pelicula {
     }
 
     @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof Pelicula)) return false;
+        Pelicula p = (Pelicula) o;
+        return id == p.id;
+    }
+
+    @Override
+    public int hashCode() {
+        return Integer.hashCode(id);
+    }
+
+    @Override
     public String toString() {
         return "Pelicula{" +
                 "id=" + id +
