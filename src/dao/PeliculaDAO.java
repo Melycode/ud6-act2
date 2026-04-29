@@ -6,6 +6,7 @@ import modelo.Pelicula;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Map;
 import java.util.List;
 
 public class PeliculaDAO {
