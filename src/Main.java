@@ -2,6 +2,7 @@ import dao.ActorDAO;
 import dao.PeliculaDAO;
 import modelo.Actor;
 import modelo.Pelicula;
+import java.util.Map;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -18,8 +19,8 @@ public class Main {
   //  pDAO.actualizarPelicula(p, 11);
   //  pDAO.eliminarPelicula(11);
   //  pDAO.obtenerPeliculasConActores()
-      .forEach((p, total) ->
-          System.out.println(p.getTitulo() + " | Actores: " + total)
+      .forEach((pelicula, total) ->
+          System.out.println(pelicula.getTitulo() + " | Actores: " + total)
       );
   //  pDAO.obtenerActoresPeliculaPorId(3);
   //  System.out.println(pDAO.obtenerPeliculasConMasDe3Actores());
