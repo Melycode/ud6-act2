@@ -60,38 +60,39 @@ public class PeliculaDAO {
         }
     }
 
-    public List<Pelicula> obtenerPeliculasConActores() {
-        List<Pelicula> peliculas = new ArrayList<>();
-        HashMap<Integer, Pelicula> peliculasYa = new HashMap<>();
-
+    public Map<Pelicula, Integer> obtenerPeliculasConActores() {
+        Map<Pelicula, Integer> resultado = new HashMap<>();
+    
         try (Connection conn = DriverManager.getConnection(url, user, pass)) {
             String sql = "SELECT p.*, COUNT(r.actor_id) AS total_actores FROM peliculas p " +
-                    "LEFT JOIN reparto r ON p.id = r.pelicula_id " +
-                    "GROUP BY p.id, p.titulo, p.genero, p.duracion, p.presupuesto";
+                         "LEFT JOIN reparto r ON p.id = r.pelicula_id " +
+                         "GROUP BY p.id, p.titulo, p.genero, p.duracion, p.presupuesto";
+    
             PreparedStatement ps = conn.prepareStatement(sql);
             ResultSet rs = ps.executeQuery();
-
+    
             while (rs.next()) {
-                int id = rs.getInt("id");
-                if (!peliculasYa.containsKey(id)) {
-                    Pelicula p = new Pelicula(
-                            id,
-                            rs.getString("titulo"),
-                            rs.getString("genero"),
-                            rs.getInt("duracion"),
-                            rs.getDouble("presupuesto")
-                    );
-                    peliculas.add(p);
-                    peliculasYa.put(id, p);
-                    System.out.println(p.getTitulo() + " | Total Actores: " + rs.getInt("total_actores"));
-                }
+                Pelicula p = new Pelicula(
+                        rs.getInt("id"),
+                        rs.getString("titulo"),
+                        rs.getString("genero"),
+                        rs.getInt("duracion"),
+                        rs.getDouble("presupuesto")
+                );
+    
+                int totalActores = rs.getInt("total_actores");
+    
+                resultado.put(p, totalActores);
+    
+                System.out.println(p.getTitulo() + " | Total Actores: " + totalActores);
             }
+    
         } catch (SQLException e) {
             System.out.println("Error: " + e.getMessage());
         }
-        return peliculas;
+    
+        return resultado;
     }
-
 
     public List<Actor> obtenerActoresPeliculaPorId(int idPelicula) {
         List<Actor> listaActores = new ArrayList<>();
