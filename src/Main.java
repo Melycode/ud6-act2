@@ -17,7 +17,10 @@ public class Main {
   //  p.setPresupuesto(19000000);
   //  pDAO.actualizarPelicula(p, 11);
   //  pDAO.eliminarPelicula(11);
-  //  pDAO.obtenerPeliculasConActores();
+  //  pDAO.obtenerPeliculasConActores()
+      .forEach((p, total) ->
+          System.out.println(p.getTitulo() + " | Actores: " + total)
+      );
   //  pDAO.obtenerActoresPeliculaPorId(3);
   //  System.out.println(pDAO.obtenerPeliculasConMasDe3Actores());
   //    System.out.println(pDAO.obtener3PeliculasConMayorPresupuesto());
